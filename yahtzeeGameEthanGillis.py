@@ -6,17 +6,21 @@
 import csv
 import random
 from cImage import *
-# This first function is to be called after the initial input of the number of players
+# The validate player function checks to make sure the player has entered a name
+def validatePlayer(array, i):
+    x = input("Player "+str(i+1)+"'s Name Here: ")
+    if (x != ''):
+        array.append(x)
+        return array
+    else:
+        print('Please enter a player name.')
+        return validatePlayer(array, i)
+# This function is to be called after the initial input of the number of players
 # it returns and array with everyone's name, which can then be used to make the score card
 def initializePlayers(number):
     array = []
     for i in range(number):
-        x = input("Player "+str(i+1)+"'s Name Here: ")
-        if (x != ''):
-            array.append(x)
-        else:
-            print('Please enter a player name.')
-            return initializePlayers(number)
+        array = validatePlayer(array, i)
     return array
 
 # First we initialize the scorecard for the upper scores

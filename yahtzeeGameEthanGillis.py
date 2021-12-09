@@ -149,10 +149,10 @@ def rollImage(dice, prompt):
     sourceImage = FileImage('dice.gif')
     diceWidth = (sourceImage.getWidth())//6
     diceHeight = sourceImage.getHeight()
-    newDice = EmptyImage(diceWidth, diceHeight)
     finalWindow = ImageWin(prompt, diceWidth * 5, diceHeight)
     transform = 0
     for die in dice:
+        newDice = EmptyImage(diceWidth, diceHeight)
         beginning = (die-1)*diceWidth
         end = die * diceWidth
         widthNumber = []
@@ -167,6 +167,7 @@ def rollImage(dice, prompt):
         newDice.setPosition(diceWidth * transform, 0)
         newDice.draw(finalWindow)
         transform += 1
+    finalWindow.exitOnClick()
 # The function initialRoll will make an array with five random numbers, each representing one of the dice
 def initialRoll(player):
     # We start by initializing a dice array

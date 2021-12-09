@@ -164,12 +164,12 @@ def rollImage(die):
             newDice.setPixel(widthNumber[col], row, newPixel)
     newDice.draw(newWindow)
     return newDice
-
-                
-
-    
 # The function initialRoll will make an array with five random numbers, each representing one of the dice
 def initialRoll(player):
+    sourceImage = FileImage('dice.gif')
+    diceWidth = (sourceImage.getWidth())//6
+    diceHeight = sourceImage.getHeight()
+    finalWindow = EmptyImage(diceWidth*5, diceHeight)
     # We start by initializing a dice array
     dice = []
     # Then we can use a for loop that goes 5 times with the roll() function to roll 5 dice and add the numbers to the array
@@ -180,7 +180,9 @@ def initialRoll(player):
     for i in range(5):
         print('Dice '+str(i+1)+': '+str(dice[i]))
     for die in dice:
-        rollImage(die)
+        newDice = rollImage(die)
+        
+
     # The array is returned, to be used when rerolling or adding scores
     return dice
 

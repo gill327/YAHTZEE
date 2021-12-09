@@ -144,7 +144,30 @@ def bonus():
 # This next funciton defines a single dice roll using the random randint funciton from 1 to 6
 def roll():
     return random.randint(1, 6)
+# rollImage makes an image of a single die from the dice rolled
+def rollImage(die):
+    sourceImage = FileImage('dice.gif')
+    diceWidth = (sourceImage.getWidth())//6
+    diceHeight = sourceImage.getHeight()
+    newDice = EmptyImage(diceWidth, diceHeight)
+    newWindow = ImageWin('Die', diceWidth, diceHeight)
+    beginning = (die-1)*diceWidth
+    end = die * diceWidth
+    widthNumber = []
+    for i in range(6):
+        for col in range(diceWidth):
+            widthNumber.append(col)
+    for row in range(diceHeight):
+        for col in range(beginning, end): 
+            sourcePixel = sourceImage.getPixel(col, row)
+            newPixel = sourcePixel
+            newDice.setPixel(widthNumber[col], row, newPixel)
+    newDice.draw(newWindow)
+    return newDice
 
+                
+
+    
 # The function initialRoll will make an array with five random numbers, each representing one of the dice
 def initialRoll(player):
     # We start by initializing a dice array
@@ -156,6 +179,8 @@ def initialRoll(player):
     print('First roll results:')
     for i in range(5):
         print('Dice '+str(i+1)+': '+str(dice[i]))
+    for die in dice:
+        rollImage(die)
     # The array is returned, to be used when rerolling or adding scores
     return dice
 

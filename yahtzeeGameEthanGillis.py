@@ -145,7 +145,7 @@ def bonus():
 def roll():
     return random.randint(1, 6)
 # rollImage makes an image of a single die from the dice rolled
-def rollImage(dice, prompt):
+def rollImage(dice, prompt, clicks=0):
     sourceImage = FileImage('dice.gif')
     diceWidth = (sourceImage.getWidth())//6
     diceHeight = sourceImage.getHeight()
@@ -167,7 +167,20 @@ def rollImage(dice, prompt):
         newDice.setPosition(diceWidth * transform, 0)
         newDice.draw(finalWindow)
         transform += 1
-    finalWindow.exitOnClick()
+    if (not clicks):
+        finalWindow.exitOnClick()
+    else:
+        rerollDice = []
+        for i in range(clicks):
+            pos = finalWindow.getMouse()
+            x = pos[0]
+            for j in range(1,7):
+                if (diceWidth*(j-1) < x < diceWidth*j):
+                    rerollDice.append(j-1)
+        completeImage = FileImage('click_here.gif')
+        completeImage.draw(finalWindow)
+        finalWindow.exitOnClick()
+        return rerollDice
 # The function initialRoll will make an array with five random numbers, each representing one of the dice
 def initialRoll(player):
     # We start by initializing a dice array
@@ -180,7 +193,7 @@ def initialRoll(player):
     for i in range(5):
         print('Dice '+str(i+1)+': '+str(dice[i]))
     transform = 0
-    rollImage(dice, 'Initial Roll')
+    rollImage(dice, 'Initial Roll (Click on any dice to continue)')
     # The array is returned, to be used when rerolling or adding scores
     return dice
 
@@ -193,7 +206,7 @@ def reRoll(diceRoll, dice):
     print('\nCurrent dice values: ')
     for i in range(5):
         print('Dice '+str(i+1)+': '+str(dice[i]))
-    rollImage(dice, 'Reroll Results')
+    rollImage(dice, 'Current Dice (Click on any dice to continue)')
     return dice
 
 # The continue function determines if there are still 'empty scores' using the options dictionary, and returns true or false
@@ -514,11 +527,10 @@ def yahtzeeRound(players):
                     if ('no' in again.lower()):
                         reRollCount = 2
                     else:
-                        diceRoll = []
                         diceAmnt = validateOneFive('How many dice would you like to reroll? (1-5) ')
-                        for i in range(diceAmnt):
-                            die = validateOneFive('Which dice would you like to add to the reroll? (1-5) ')
-                            diceRoll.append(die-1)
+                        # In this case for rollImage, I included diceAmnt as an optional variable, so that 
+                        # you can click on which dice you want to reroll
+                        diceRoll = rollImage(dice, 'Click on the dice you want to reroll:', diceAmnt)
                         dice = reRoll(diceRoll, dice)
                         reRollCount = reRollCount + 1
             # the options function will deterine available categories and return what the player chooses

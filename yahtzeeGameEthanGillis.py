@@ -174,12 +174,15 @@ def rollImage(dice, prompt, clicks=0):
     if (not clicks):
         finalWindow.exitOnClick()
     else:
+        # The else statement here uses clicks to allow the user to click on the dice they want to roll again
         rerollDice = []
         for i in range(clicks):
             pos = finalWindow.getMouse()
             x = pos[0]
             for j in range(1,7):
+                # This loops through the position of each die
                 if (diceWidth*(j-1) < x < diceWidth*j):
+                    # The clicked.gif file allows the dice to show that it is selected in the window
                     checkedSource = FileImage('clicked.gif')
                     rerollDice.append(j-1)
                     checked = drawDie(j, diceWidth, diceHeight, checkedSource)
@@ -591,5 +594,7 @@ def YAHTZEE():
 
 YAHTZEE()
 # Load the file into the IDLE shell to begin the game
-# Everything reads best in full screen
-# YAHTZEE() can be called to start a new game if you finish or end
+# You can also run the program by itself, or use a different IDE
+# Use full screen for the best results
+# YAHTZEE() can be called to start a new game if you end in an IDE
+# Otherwise, you can just run the program again to start or resume

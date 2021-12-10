@@ -144,6 +144,21 @@ def bonus():
 # This next funciton defines a single dice roll using the random randint funciton from 1 to 6
 def roll():
     return random.randint(1, 6)
+# the drawDie function draws a single die
+def drawDie(die, diceWidth, diceHeight, sourceImage):
+    newDice = EmptyImage(diceWidth, diceHeight)
+    beginning = (die-1)*diceWidth
+    end = die * diceWidth
+    widthNumber = []
+    for i in range(6):
+        for col in range(diceWidth):
+            widthNumber.append(col)
+    for row in range(diceHeight):
+        for col in range(beginning, end): 
+            sourcePixel = sourceImage.getPixel(col, row)
+            newPixel = sourcePixel
+            newDice.setPixel(widthNumber[col], row, newPixel)
+    return newDice
 # rollImage makes an image of a single die from the dice rolled
 def rollImage(dice, prompt, clicks=0):
     sourceImage = FileImage('dice.gif')
@@ -152,18 +167,7 @@ def rollImage(dice, prompt, clicks=0):
     finalWindow = ImageWin(prompt, diceWidth * 5, diceHeight)
     transform = 0
     for die in dice:
-        newDice = EmptyImage(diceWidth, diceHeight)
-        beginning = (die-1)*diceWidth
-        end = die * diceWidth
-        widthNumber = []
-        for i in range(6):
-            for col in range(diceWidth):
-                widthNumber.append(col)
-        for row in range(diceHeight):
-            for col in range(beginning, end): 
-                sourcePixel = sourceImage.getPixel(col, row)
-                newPixel = sourcePixel
-                newDice.setPixel(widthNumber[col], row, newPixel)
+        newDice = drawDie(die, diceWidth, diceHeight, sourceImage)
         newDice.setPosition(diceWidth * transform, 0)
         newDice.draw(finalWindow)
         transform += 1
@@ -176,7 +180,11 @@ def rollImage(dice, prompt, clicks=0):
             x = pos[0]
             for j in range(1,7):
                 if (diceWidth*(j-1) < x < diceWidth*j):
+                    checkedSource = FileImage('clicked.gif')
                     rerollDice.append(j-1)
+                    checked = drawDie(j, diceWidth, diceHeight, checkedSource)
+                    checked.setPosition(diceWidth*(j-1), 0)
+                    checked.draw(finalWindow)
         completeImage = FileImage('click_here.gif')
         completeImage.draw(finalWindow)
         finalWindow.exitOnClick()

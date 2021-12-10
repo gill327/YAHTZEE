@@ -6,6 +6,26 @@
 import csv
 import random
 from cImage import *
+def createClicked():
+    image = FileImage('dice.gif')
+    width = image.getWidth()
+    height = image.getHeight()
+    newIm = EmptyImage(width, height)
+    for row in range(height):
+        for col in range(width):
+            pixel1 = image.getPixel(col, row)
+            red = pixel1.getRed()
+            green = pixel1.getGreen()
+            blue = pixel1.getBlue()
+            newPixel = pixel1
+            if (red == green == blue):
+                if (red == 255):
+                    newPixel = Pixel(51, 213, 102)
+                elif (red == 0):
+                    newPixel = Pixel(255, 255, 255)
+            newIm.setPixel(col, row, newPixel)
+    newIm.save('clicked.gif')
+
 # The validate player function checks to make sure the player has entered a name
 def validatePlayer(array, i):
     x = input("Player "+str(i+1)+"'s Name Here: ")
@@ -591,7 +611,7 @@ def resumeGame():
 # It can be called with a file parameter to resume a previous game
 def YAHTZEE():
     newGame()
-
+createClicked()
 YAHTZEE()
 # Load the file into the IDLE shell to begin the game
 # You can also run the program by itself, or use a different IDE

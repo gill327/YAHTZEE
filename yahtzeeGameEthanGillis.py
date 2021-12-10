@@ -6,6 +6,8 @@
 import csv
 import random
 from cImage import *
+# This function creates a gif file by altering the colors of the starting dice image
+# This will allow the function to show which dice have been clicked during a reroll
 def createClicked():
     image = FileImage('dice.gif')
     width = image.getWidth()
@@ -22,7 +24,7 @@ def createClicked():
                 if (red == 255):
                     newPixel = Pixel(51, 213, 102)
                 elif (red == 0):
-                    newPixel = Pixel(255, 255, 255)
+                    newPixel = Pixel(51, 213, 102)
             newIm.setPixel(col, row, newPixel)
     newIm.save('clicked.gif')
 
@@ -208,8 +210,6 @@ def rollImage(dice, prompt, clicks=0):
                     checked = drawDie(j, diceWidth, diceHeight, checkedSource)
                     checked.setPosition(diceWidth*(j-1), 0)
                     checked.draw(finalWindow)
-        completeImage = FileImage('click_here.gif')
-        completeImage.draw(finalWindow)
         finalWindow.exitOnClick()
         return rerollDice
 # The function initialRoll will make an array with five random numbers, each representing one of the dice

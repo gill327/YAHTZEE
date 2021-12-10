@@ -518,6 +518,9 @@ def yahtzeeRound(players):
         for i in range(82):
             print('_', end = '')
         print('\nRound '+str(roundNumber))
+        save = input('Save or continue? (Type SAVE to save)')
+        if 'save' in save.lower():
+            return saveGame()
         # This input in between rounds allows users to check on the current scores of the game
         scoreCheck = input('Check current scores? (YES or NO) ')
         if ('yes' in scoreCheck.lower()):
@@ -529,27 +532,24 @@ def yahtzeeRound(players):
         for player in players:
             # Each round introduces the player, the initial roll, and asks which dice to reroll
             # They also have the option to save their game before each turn by typing 'save'
-            enter = input('\n'+player+"'s turn \n(press ENTER to continue OR type SAVE to save) ")
-            if 'save' not in enter.lower():
-                dice = initialRoll(player)
-                reRollCount = 0
-                while (reRollCount < 2):
-                    again = input('\nWould you like to reroll any dice? (YES or NO) ')
-                    if ('no' in again.lower()):
-                        reRollCount = 2
-                    else:
-                        diceAmnt = validateOneFive('How many dice would you like to reroll? (1-5) ')
-                        # In this case for rollImage, I included diceAmnt as an optional variable, so that 
-                        # you can click on which dice you want to reroll
-                        diceRoll = rollImage(dice, 'Click on the dice you want to reroll:', diceAmnt)
-                        dice = reRoll(diceRoll, dice)
-                        reRollCount = reRollCount + 1
+            input('\n'+player+"'s turn \n(press ENTER to continue) ")
+            dice = initialRoll(player)
+            reRollCount = 0
+            while (reRollCount < 2):
+                again = input('\nWould you like to reroll any dice? (YES or NO) ')
+                if ('no' in again.lower()):
+                    reRollCount = 2
+                else:
+                    diceAmnt = validateOneFive('How many dice would you like to reroll? (1-5) ')
+                    # In this case for rollImage, I included diceAmnt as an optional variable, so that 
+                    # you can click on which dice you want to reroll
+                    diceRoll = rollImage(dice, 'Click on the dice you want to reroll:', diceAmnt)
+                    dice = reRoll(diceRoll, dice)
+                    reRollCount = reRollCount + 1
             # the options function will deterine available categories and return what the player chooses
-                category = options(players, player)
-                print(category)
-                score(players, player, category, dice)
-            else:
-                return saveGame()
+            category = options(players, player)
+            print(category)
+            score(players, player, category, dice)
     for i in range(82):
         print('-', end = '')
     print('')

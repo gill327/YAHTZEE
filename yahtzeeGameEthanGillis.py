@@ -538,7 +538,7 @@ def yahtzeeRound(players):
         for i in range(82):
             print('_', end = '')
         print('\nRound '+str(roundNumber))
-        save = input('Save or continue? (Type SAVE to save)')
+        save = input('Save or continue? \n(Type SAVE to save or press ENTER to continue)')
         if 'save' in save.lower():
             return saveGame()
         # This input in between rounds allows users to check on the current scores of the game

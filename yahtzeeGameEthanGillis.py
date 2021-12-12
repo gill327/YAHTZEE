@@ -6,6 +6,14 @@
 import csv
 import random
 from cImage import *
+
+# Load the file into the IDLE shell to begin the game
+# You can also run the program by itself, or use a different IDE
+# Use full screen for the best results
+# YAHTZEE() can be called to start a new game if you end in an IDE
+# Otherwise, you can just run the program again to start or resume
+
+
 # This function creates a gif file by altering the colors of the starting dice image
 # This will allow the function to show which dice have been clicked during a reroll
 def createClicked():
@@ -607,14 +615,11 @@ def resumeGame():
     initializeResume(fileName)
     yahtzeeRound(players)
 
-# The YAHTZEE() function starts a game of Yahtzee
-# It can be called with a file parameter to resume a previous game
+# The YAHTZEE() function calls the createClicked and newGame functions
+# This starts the game, from there you can choose to start a new game or load an old one
 def YAHTZEE():
+    createClicked()
     newGame()
-createClicked()
+
+# The only function called when the file is loaded is the YAHTZEE function to start the game
 YAHTZEE()
-# Load the file into the IDLE shell to begin the game
-# You can also run the program by itself, or use a different IDE
-# Use full screen for the best results
-# YAHTZEE() can be called to start a new game if you end in an IDE
-# Otherwise, you can just run the program again to start or resume

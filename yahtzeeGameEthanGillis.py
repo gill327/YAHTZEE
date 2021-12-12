@@ -189,6 +189,7 @@ def drawDie(die, diceWidth, diceHeight, sourceImage):
             newPixel = sourcePixel
             newDice.setPixel(widthNumber[col], row, newPixel)
     return newDice
+
 # rollImage makes an image of a single die from the dice rolled
 def rollImage(dice, prompt, clicks=0):
     sourceImage = FileImage('dice.gif')
@@ -220,6 +221,7 @@ def rollImage(dice, prompt, clicks=0):
                     checked.draw(finalWindow)
         finalWindow.exitOnClick()
         return rerollDice
+
 # The function initialRoll will make an array with five random numbers, each representing one of the dice
 def initialRoll(player):
     # We start by initializing a dice array
@@ -448,6 +450,7 @@ def validateOneFive(message):
     else:
         print('Make sure your number is in between 1 and 5!\n')
         return validateOneFive(message)
+
 # The restart function asks the player if they want to quit or return to the title screen
 # After a save or win
 def restart():
@@ -461,6 +464,7 @@ def restart():
         return
     else:
         YAHTZEE()
+
 # The checkScore function will return a dictionary with the players and their current scores
 # it is used in combination with finalScore() at the end of the game, and can be called in between
 # rounds if the players want to check the score
@@ -488,6 +492,7 @@ def checkScore():
             total = total + lower[i][j]
         playerScore[player] += total
     return playerScore
+
 # the finalScore function will count up the total for each player and tell who the winner is
 def finalScore():
     global upper

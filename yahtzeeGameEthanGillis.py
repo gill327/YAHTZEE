@@ -518,6 +518,7 @@ def finalScore():
 
 # The saveGame function writes the players' scores and options into a save file
 def saveGame():
+    bonus()
     global players, upper, lower, totalOptions
     for i in range(82):
         print('-', end = '')

@@ -1,8 +1,3 @@
-# Ethan Gillis
-# COMP 150
-# Yahtzee Game
-# 12/6/2021
-
 import csv
 import random
 from cImage import *
